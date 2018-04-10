@@ -32,7 +32,7 @@ public class ChoixSeniorList extends JDialog implements MyView{
 	private final JPanel contentPanel = new JPanel();
 	private static JList<String> listSeniors;
 	private static JList<String> listActivites;
-	private JButton btnValider;
+//	private JButton btnValider;
 	private JButton btnVoirSeances;
 	
 //	public static void init(){
@@ -126,13 +126,13 @@ public class ChoixSeniorList extends JDialog implements MyView{
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+//		{
+//			btnValider = new JButton("Valider");
+//			buttonPane.add(btnValider);
+//			getRootPane().setDefaultButton(btnValider);
+//		}
 		{
-			btnValider = new JButton("Valider");
-			buttonPane.add(btnValider);
-			getRootPane().setDefaultButton(btnValider);
-		}
-		{
-			btnVoirSeances = new JButton("Voir les S\u00E9sances");
+			btnVoirSeances = new JButton("Voir les S\u00E9ances");
 			buttonPane.add(btnVoirSeances);
 		}
 		JButton btnFermer = new JButton("Fermer");
@@ -141,7 +141,7 @@ public class ChoixSeniorList extends JDialog implements MyView{
 				dispose();
 			}
 		});
-		buttonPane.add(btnValider);
+//		buttonPane.add(btnValider);
 		buttonPane.add(btnVoirSeances);
 		buttonPane.add(btnFermer);
 		
@@ -150,8 +150,8 @@ public class ChoixSeniorList extends JDialog implements MyView{
 
 	@Override
 	public void assignListener(Ctrl ctrl) {
-		this.btnValider.setActionCommand("InscriptionSenior_valider");
-		this.btnValider.addActionListener(ctrl);
+//		this.btnValider.setActionCommand("InscriptionSenior_valider");
+//		this.btnValider.addActionListener(ctrl);
 		this.btnVoirSeances.setActionCommand("InscriptionSenior_voirSeances");
 		this.btnVoirSeances.addActionListener(ctrl);
 	}
