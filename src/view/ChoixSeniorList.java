@@ -13,6 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
@@ -88,8 +89,14 @@ public class ChoixSeniorList extends JDialog implements MyView{
 		listSeniors = new JList<String>();
 		listSeniors.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listSeniors.setBounds(41, 25, 167, 84);
-		contentPanel.add(listSeniors);
+		JScrollPane scrollPane = new JScrollPane(listSeniors);
+		scrollPane.setBounds(41,25,167,84);
+		contentPanel.add(scrollPane);
+		//contentPanel.add(listSeniors);
 		setListSeniors(liste);
+		
+
+//		scrollPane.setViewportView(listSeniors);
 		
 		listActivites = new JList<String>();
 		listActivites.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
