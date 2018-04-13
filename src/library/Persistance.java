@@ -244,9 +244,9 @@ public abstract class Persistance {
 		Connection myConn;
 		
 		try {
-		System.out.println("Connexion à la BDD " + jdbcURL);
+//		System.out.println("Connexion à la BDD " + jdbcURL);
 		myConn = DriverManager.getConnection(jdbcURL,user,password);
-		System.out.println("Connexion réussie !!!");
+//		System.out.println("Connexion réussie !!!");
 		
 		return myConn;
 		}
