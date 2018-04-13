@@ -1,0 +1,103 @@
+
+--------------------------------------------------
+--Procédures
+-----------------------------
+--Procédures de Création
+
+CREATE OR REPLACE FUNCTION groupe3.addnewsenior(numsecu varchar(13), nom varchar(50))
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+begin
+	insert into senior values(
+	numsecu,
+	nom
+	);
+end;
+$function$
+
+create or replace function groupe3.addnewactivite(designation varchar(20), nbmax int )
+	returns void
+	language plpgsql
+	as $function$
+	begin	
+			insert into acivite values(
+			nextval('num_activite'),
+			designation,
+			nbmax);
+	end;
+$function$
+
+create or replace function groupe3.addnewseance(dateseance timestamp, idact int)
+returns void
+language plpgsql
+as $function$
+begin
+	insert into seance values(
+		nextval('num_seance'),
+		dateseance,
+		idact);
+end;
+$function$
+
+create or replace function groupe3.addnewparticiper(numsecur varchar(13), codeseance int)
+returns void
+language plpgsql
+as $function$
+begin
+	insert into participer values(
+		numsecur,
+		codeseance);
+end;
+$function$
+
+----------------
+--Procédures de vérifications
+
+create or replace function verifparticiper()
+returns trigger
+language plpgsql
+as $function$
+declare
+lenbmax int;
+nbsenior int;
+begin
+	select nbmax into lenbmax from (activite inner join seance on idact=identifiant) inner join participer on code = codeseance where codeseance = new.codeseance;
+	select count(*) into nbsenior from participer where codeseance = new.codeseance;
+	if(nbsenior>=lenbmax) then 
+		raise exception 'le nombre maximum de places est déja atteint';
+	else
+		return new;
+	end if;
+end; 
+$function$
+
+create trigger trigverifparticiper before insert
+	on participer for each row execute procedure verifparticiper();
+
+select addnewsenior('2135687963','Sixieme');
+select addnewsenior('21356586863','Septieme');
+select addnewsenior('21375687963','Huitieme');
+select addnewsenior('213561587963','Neufieme');
+select addnewsenior('213568687963','DIxieme');
+select addnewsenior('2187687963','Onzieme');
+select addnewsenior('46879816','Douxieme');
+select addnewsenior('479816','Treizieme');
+
+
+select addnewparticiper('1234567894561', 0);
+select addnewparticiper('21356586863', 0);
+select addnewparticiper('21375687963', 0);
+select addnewparticiper('2135687963', 1);
+select addnewparticiper('213561587963', 0);
+select addnewparticiper('213568687963', 0);
+select addnewparticiper('2187687963', 0);
+select addnewparticiper('54978945616', 0);
+select addnewparticiper('479816', 0);
+
+select * from (activite inner join seance on idact=identifiant) inner join participer on code = codeseance where codeseance = 0;
+
+select count(*) into nbsenior from participer where codeseance = new.codeseance;
+
+
+----------------
