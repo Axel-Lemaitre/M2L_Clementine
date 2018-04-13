@@ -23,6 +23,7 @@ public class MainView extends JFrame implements MyView{
 	private JPanel contentPane;
 	private JButton btnSenior;
 	private JButton btnInscription;
+	private JButton btnVoirSeniors;
 
 	/**
 	 * Launch the application.
@@ -73,6 +74,11 @@ public class MainView extends JFrame implements MyView{
 		btnInscription.setBounds(54, 104, 309, 23);
 		contentPane.add(btnInscription);
 		
+		//Création et ajout du bouton qui nous dirige vers la fenêtre d'affichage des séniors
+		btnVoirSeniors = new JButton("Voir les séniors");
+		btnVoirSeniors.setBounds(54, 152, 309,23);
+		contentPane.add(btnVoirSeniors);
+		
 		//Création du bouton pour quitter l'application
 		JButton btnFermer = new JButton("Quitter");
 		btnFermer.addActionListener(new ActionListener() {
@@ -90,6 +96,8 @@ public class MainView extends JFrame implements MyView{
 		this.btnSenior.setActionCommand("MainView_senior");
 		this.btnSenior.addActionListener(ctrl);
 		this.btnInscription.setActionCommand("MainView_inscription");
-		this.btnInscription.addActionListener(ctrl);	
+		this.btnInscription.addActionListener(ctrl);
+		this.btnVoirSeniors.setActionCommand("MainView_voir");
+		this.btnVoirSeniors.addActionListener(ctrl);
 	}
 }
