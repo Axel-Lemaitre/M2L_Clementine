@@ -32,13 +32,7 @@ public class ChoixSeniorList extends JDialog implements MyView{
 	private final JPanel contentPanel = new JPanel();
 	private static JList<String> listSeniors;
 	private static JList<String> listActivites;
-//	private JButton btnValider;
 	private JButton btnVoirSeances;
-	
-//	public static void init(){
-//		listActivites.setSelectedValue(null);;
-//		listSeniors.setSelectedIndex(null);
-//	}
 
 	public static String getActiviteName(){
 		return listActivites.getSelectedValue();
@@ -92,23 +86,13 @@ public class ChoixSeniorList extends JDialog implements MyView{
 		JScrollPane scrollPane = new JScrollPane(listSeniors);
 		scrollPane.setBounds(41,25,167,84);
 		contentPanel.add(scrollPane);
-		//contentPanel.add(listSeniors);
 		setListSeniors(liste);
-		
-
-//		scrollPane.setViewportView(listSeniors);
-		
+				
 		listActivites = new JList<String>();
 		listActivites.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listActivites.setBounds(41,166,167,150);
 		contentPanel.add(listActivites);
 		setListActivites(listeA);
-		
-//		listDateSeances = new JList<String>();
-//		listDateSeances.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		listDateSeances.setBounds(180,166,167,150);
-//		contentPanel.add(listDateSeances);
-//		setListSeances(listD);
 		
 		JLabel lblSenior = new JLabel("Etape 1 : choix du s\u00E9nior");
 		lblSenior.setBounds(0, 0, 434, 14);
@@ -116,21 +100,11 @@ public class ChoixSeniorList extends JDialog implements MyView{
 		
 		JLabel lblActivite = new JLabel("Etape 2 : choix des activit\u00E9s");
 		lblActivite.setBounds(0, 131, 434, 14);
-		contentPanel.add(lblActivite);
-		
-//		JLabel lblSeance = new JLabel("Etape 3 : choix des s\u00E9sances");
-//		lblSeance.setBounds(150,131,434,14);
-//		contentPanel.add(lblSeance);
-	
+		contentPanel.add(lblActivite);	
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-//		{
-//			btnValider = new JButton("Valider");
-//			buttonPane.add(btnValider);
-//			getRootPane().setDefaultButton(btnValider);
-//		}
 		{
 			btnVoirSeances = new JButton("Voir les S\u00E9ances");
 			buttonPane.add(btnVoirSeances);
@@ -141,7 +115,6 @@ public class ChoixSeniorList extends JDialog implements MyView{
 				dispose();
 			}
 		});
-//		buttonPane.add(btnValider);
 		buttonPane.add(btnVoirSeances);
 		buttonPane.add(btnFermer);
 		
@@ -150,8 +123,6 @@ public class ChoixSeniorList extends JDialog implements MyView{
 
 	@Override
 	public void assignListener(Ctrl ctrl) {
-//		this.btnValider.setActionCommand("InscriptionSenior_valider");
-//		this.btnValider.addActionListener(ctrl);
 		this.btnVoirSeances.setActionCommand("InscriptionSenior_voirSeances");
 		this.btnVoirSeances.addActionListener(ctrl);
 	}
