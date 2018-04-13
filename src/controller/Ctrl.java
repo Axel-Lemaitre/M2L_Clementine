@@ -64,16 +64,18 @@ public class Ctrl implements ActionListener{
 				frame.setVisible(true);
 				break;
 			case "inscription":
-				//Création de la vue de sélection du sénior pour lequel on souhaite effectuer des inscriptions
+				//Création des listes qui vont contenir les seniors et activités à afficher
 				ArrayList<Senior> liste=new ArrayList<Senior>();
 				ArrayList<Activite> listeA = new ArrayList<Activite>();
 				try {
+					//Affectation des valeurs de la base de donnée dans les listes associés
 					liste = Persistance.selectSenior();
 					listeA = Persistance.selectActivite();
 				} catch (SQLException e) {
 					String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
 					JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 				}
+				//Création de la vue de sélection du sénior pour lequel on souhaite effectuer des inscriptions
 				ChoixSeniorList frame1 = new ChoixSeniorList(liste, listeA);
 				//Assignation d'un observateur sur cette vue
 				frame1.assignListener(this);
@@ -118,8 +120,10 @@ public class Ctrl implements ActionListener{
 		case "InscriptionSenior":
 			switch(what){
 			case "valider":
+				//Récupération des données séléctionnés par l'utilisateur
 				String act = ChoixSeniorList.getActiviteName();
 				String senior = ChoixSeniorList.getSeniorName();
+				//Création de la liste qui va contenir les dates des séances de l'activité sélectionnée
 				ArrayList<String> date = ChoixSeances.getSeanceDate();
 				if(act.equals("")){
 					JOptionPane.showMessageDialog(null,"Aucune activité n'à été séléctionnée.","Erreur Saisie",JOptionPane.WARNING_MESSAGE);
@@ -129,10 +133,12 @@ public class Ctrl implements ActionListener{
 				}else{
 					//INSERT dans la BD
 					try {
+						//Affectation des données de la BDD dans des listes
 						ArrayList<Senior> liste=  Persistance.selectSenior();
 						ArrayList<Activite> listeA = Persistance.selectActivite();
 						ArrayList<Seance> listeS = Persistance.selectSeance(ChoixSeniorList.getActiviteName());
 						
+						//Récupération des object complet à partir du seul String sélectionné
 						Activite laActivite = null;
 						Senior leSenior = null;
 						ArrayList<Seance> lesSeances = new ArrayList<Seance>();
@@ -147,19 +153,16 @@ public class Ctrl implements ActionListener{
 								leSenior = lui;
 						}
 						
-//						System.out.println(listeS);
 						
 						for(Seance it : listeS){
 							for(String laDate : date){
 								if(it.getDateSeance().toString().equals(laDate) == true){
 									lesSeances.add(it);
 								}
-//								System.out.println(it.getDateSeance().toString().equals(laDate));
-//								System.out.println(it);
 							}
 						}
-//						System.out.println(lesSeances.size());
 						
+						//Ajout de la participation du sénior à une séance dans la base de donnée
 						Persistance.associeSeniorActivite(lesSeances, leSenior.getNumSecu());
 						//Message de confirmation pour l'utilisateur
 						JOptionPane.showMessageDialog(null,"Le sénior a bien été ajouté au(x) cour(s) de l'activité"+laActivite.getDesignation(),"Confirmation Enregistrement",JOptionPane.INFORMATION_MESSAGE);

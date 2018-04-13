@@ -21,13 +21,16 @@ import model.Seance;
 public class ChoixSeances extends JDialog implements MyView{
 
 	/**
-	 * 
+	 * classe définissant la vue de sélection du la vue affichant les séances d'activité
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private static JList<String> listSeances;
 	private JButton btnValider;
 	
+	/**
+	 * Méthode permettant de récupérer les dates sélectionnées par l'utilisateur
+	 */
 	public static ArrayList<String> getSeanceDate(){
 		ArrayList<String> retour = new ArrayList<String>();
 		for(Object date : listSeances.getSelectedValues()){
@@ -37,6 +40,10 @@ public class ChoixSeances extends JDialog implements MyView{
 		return retour;
 	}
 	
+	/**
+	 * Méthode permettant de mettre à jour le contenu de la liste des séances
+	 * @param liste Un objet ArrayList contenant des objets Seances
+	 */
 	public static void setListSeances(ArrayList<Seance> liste){
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		for(Seance s : liste){
@@ -45,6 +52,10 @@ public class ChoixSeances extends JDialog implements MyView{
 		listSeances.setModel(model);
 	}
 	
+	/**
+	 * Permet de créer ce qui sera visible dans la vue
+	 * @param liste Un objet ArrayList contenant des objets Seance à intégrer dans l'ihm
+	 */
 	public ChoixSeances(ArrayList<Seance> liste){
 		setTitle("S\u00E9ances - Inscrire");
 		setModal(true);
