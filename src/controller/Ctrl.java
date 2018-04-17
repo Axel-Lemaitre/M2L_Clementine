@@ -13,7 +13,9 @@ import model.Seance;
 import model.Senior;
 import view.AjoutSenior;
 import view.ChoixSeances;
+import view.ChoixSenior;
 import view.ChoixSeniorList;
+import view.VoirSeances;
 /**
  * Classe CONTROLEUR
  * @author xavier
@@ -81,6 +83,21 @@ public class Ctrl implements ActionListener{
 				frame1.assignListener(this);
 				//Affichage de la vue
 				frame1.setVisible(true);
+				break;
+			case "voir":
+				ArrayList<Senior> listeSeniors = new ArrayList<Senior>();
+				
+				try{
+					listeSeniors = Persistance.selectSenior();
+				}catch(SQLException e){
+					String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+					JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
+				}
+				ChoixSenior frame3 = new ChoixSenior(listeSeniors);
+				
+				frame3.assignListener(this);
+				
+				frame3.setVisible(true);
 				break;
 			}
 			break;
@@ -190,7 +207,24 @@ public class Ctrl implements ActionListener{
 					frame2.setVisible(true);
 				break;
 			}
-			break;	
+			break;
+		case "Voir":
+			switch(what){
+			case "voirSeances":
+				String senior = ChoixSenior.getSeniorName();
+				ArrayList<Seance> listeSeances = new ArrayList<Seance>();
+				try{
+					listeSeances = Persistance.selectSeanceFromSenior(senior);
+				}catch(SQLException e){
+					String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+					JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
+				}
+				VoirSeances frame4 = new VoirSeances(listeSeances);
+				
+				frame4.assignListener(this);
+				
+				frame4.setVisible(true);
+			}
 		}
 	}
 }

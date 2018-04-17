@@ -178,6 +178,31 @@ public abstract class Persistance {
 	    }
 		return liste;
 	}
+	
+	public static ArrayList<Seance> selectSeanceFromSenior(String senior) throws SQLException{
+		Connection cn = Persistance.connection();
+		Statement stmt;
+		ResultSet rs = null;
+		ArrayList<Seance>liste =new ArrayList<Seance>();
+		try{
+			stmt= cn.createStatement();
+	    	//Définition de la requete pour construire le jeu d'enregistrement
+			rs = stmt.executeQuery("SELECT * FROM (seance INNER JOIN participer ON code=codeseance) INNER JOIN senior ON senior.numsecu=participer.numsecu WHERE nom='"+senior+"'");
+			 while (rs.next()) 
+		        {
+				liste.add(new Seance(rs.getInt(1),rs.getDate(2)));
+		        }
+		}
+		catch(SQLException e) 
+		{
+			throw e;
+		}
+	    finally{
+	    	Persistance.closeConnection(cn);
+	    }
+		return liste;
+	}
+	
 	/**
 	 * Méthode de SELECT des séniors
 	 * @return un tableau contenant tous les objets Senior
