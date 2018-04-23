@@ -76,7 +76,7 @@ public abstract class Persistance {
 		try{
 			stmt = cn.createStatement();
 //			stmt2 = cn.createStatement();
-			rs = stmt.executeQuery("SELECT identifiant FROM senior");
+			rs = stmt.executeQuery("SELECT identifiant FROM senior where numsecu = '"+numSecuSenior+"'");
 			for(Seance laSeance : seances){
 				if(rs.next())
 					stmt.executeUpdate("INSERT INTO participer VALUES('"+laSeance.getCode()+"',"+rs.getInt(1)+")");
@@ -189,7 +189,7 @@ public abstract class Persistance {
 		try{
 			stmt= cn.createStatement();
 	    	//Définition de la requete pour construire le jeu d'enregistrement
-			rs = stmt.executeQuery("SELECT * FROM (seance INNER JOIN participer ON code=codeseance) INNER JOIN senior ON senior.numsecu=participer.numsecu WHERE nom='"+senior+"'");
+			rs = stmt.executeQuery("SELECT * FROM (seance INNER JOIN participer ON code=codeseance) INNER JOIN senior ON senior.identifiant=participer.idsenior WHERE nom='"+senior+"'");
 			 while (rs.next()) 
 		        {
 				liste.add(new Seance(rs.getInt(1),rs.getDate(2)));
