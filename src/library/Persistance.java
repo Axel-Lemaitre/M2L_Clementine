@@ -68,7 +68,7 @@ public abstract class Persistance {
 		Connection cn = Persistance.connection();
 		Statement stmt;
 //		Statement stmt2;
-//		ResultSet rs = null;
+		ResultSet rs = null;
 		
 		for(Seance seance : seances)
 			System.out.println(seance.getCode());
@@ -76,8 +76,10 @@ public abstract class Persistance {
 		try{
 			stmt = cn.createStatement();
 //			stmt2 = cn.createStatement();
+			rs = stmt.executeQuery("SELECT identifiant FROM senior");
 			for(Seance laSeance : seances){
-				stmt.executeUpdate("INSERT INTO participer VALUES('"+numSecuSenior+"',"+laSeance.getCode()+")");
+				if(rs.next())
+					stmt.executeUpdate("INSERT INTO participer VALUES('"+laSeance.getCode()+"',"+rs.getInt(1)+")");
 //				System.out.println(laSeance.getDateSeance());
 			}
 //			rs = stmt.executeQuery("SELECT code FROM seance WHERE idact="+idSeance);
